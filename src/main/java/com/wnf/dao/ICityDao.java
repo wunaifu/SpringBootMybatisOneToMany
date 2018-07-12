@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface ICityDao {
-    @Select("select * from city where pid=#{pid}")
+    @Select("select * from citys where pid=#{pid}")
     public List<Citys> getCitybypid(int pid);
 }
