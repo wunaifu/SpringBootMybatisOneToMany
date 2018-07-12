@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wnf.dao.TutorDao">
+    <!-- 根据 pid 查询 person 表中的数据
+         id:唯一标识符，此文件中的id值不能重复
+         resultType:返回值类型，一条数据库记录也就对应实体类的一个对象
+         parameterType:参数类型，也就是查询条件的类型
+     -->
+    <resultMap type="com.wnf.entity.Course" id="CourseResult">
+        <id column="courseId" property="courseId"/>
+        <result column="cname" property="cname"/>
+        <result column="description" property="description"/>
+        <result column="startDate" property="startDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="tutorId" property="tutorId"/>
+    </resultMap>
+    <resultMap type="com.wnf.entity.Tutor" id="TutorResult">
+        <id column="tutorId" property="tutorId"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <collection property="courses" resultMap="CourseResult"/>
+    </resultMap>
+    <select id="findTutorById" parameterType="int" resultMap="TutorResult">
+        SELECT T.*,C.*
+        FROM tutor T LEFT OUTER JOIN course C ON T.tutorId=C.tutorId
+        WHERE T.tutorId=#{tutorId}
+    </select>
+</mapper>

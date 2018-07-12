@@ -30,20 +30,40 @@ CREATE TABLE `card` (
 
 insert  into `card`(`uid`,`cnumber`) values (1,'1'),(2,'2'),(3,'3'),(4,'123'),(5,'afsd');
 
-/*Table structure for table `city` */
+/*Table structure for table `citys` */
 
-DROP TABLE IF EXISTS `city`;
+DROP TABLE IF EXISTS `citys`;
 
-CREATE TABLE `city` (
+CREATE TABLE `citys` (
   `cid` int(11) NOT NULL AUTO_INCREMENT,
   `pid` int(11) DEFAULT NULL,
   `cname` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
-/*Data for the table `city` */
+/*Data for the table `citys` */
 
-insert  into `city`(`cid`,`pid`,`cname`) values (1,1,'湛江'),(2,2,'海口'),(3,1,'中山'),(4,1,'广州'),(5,2,'三亚'),(6,1,'深圳');
+insert  into `citys`(`cid`,`pid`,`cname`) values (1,1,'湛江'),(2,2,'海口'),(3,1,'中山'),(4,1,'广州'),(5,2,'三亚'),(6,1,'深圳');
+
+/*Table structure for table `course` */
+
+DROP TABLE IF EXISTS `course`;
+
+CREATE TABLE `course` (
+  `courseId` int(11) NOT NULL AUTO_INCREMENT,
+  `cname` varchar(20) DEFAULT NULL,
+  `description` varchar(20) DEFAULT NULL,
+  `startDate` varchar(20) DEFAULT NULL,
+  `endDate` varchar(20) DEFAULT NULL,
+  `tutorId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`courseId`),
+  KEY `tutorId` (`tutorId`),
+  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`tutorId`) REFERENCES `tutor` (`tutorId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `course` */
+
+insert  into `course`(`courseId`,`cname`,`description`,`startDate`,`endDate`,`tutorId`) values (1,'数学','数学','2018-07-12 16:22:07','2018-07-12 16:22:03',1),(2,'语文','语文','2018-07-12 16:22:11','2018-07-12 16:22:02',2),(3,'英语','英语','2018-07-12 16:22:13','2018-07-12 16:21:59',2),(4,'地理','地理','2018-07-12 16:22:11','2018-07-12 16:22:11',2);
 
 /*Table structure for table `person` */
 
@@ -87,6 +107,22 @@ CREATE TABLE `roles` (
 /*Data for the table `roles` */
 
 insert  into `roles`(`rid`,`rname`) values (1,'shouli'),(2,'bing');
+
+/*Table structure for table `tutor` */
+
+DROP TABLE IF EXISTS `tutor`;
+
+CREATE TABLE `tutor` (
+  `tutorId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `address` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tutorId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tutor` */
+
+insert  into `tutor`(`tutorId`,`name`,`email`,`address`) values (1,'王老师','1',1),(2,'李老师','2',2);
 
 /*Table structure for table `users` */
 

@@ -11,7 +11,7 @@ public interface IRolesDao {
 
     //根据用户id得到所有的角色：
 
-    @Select("select * from roles where rid in(select rid from users where uid=1)")
+    @Select("select * from roles where rid in(select rid from users where uid=#{uid})")
     public List<Roles> getAllRolesByuid(int uid);
 
 

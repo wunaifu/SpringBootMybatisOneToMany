@@ -1,8 +1,6 @@
 package com.wnf;
 
-import com.wnf.dao.IPersonDao;
-import com.wnf.dao.IProvincesDao;
-import com.wnf.dao.IUserDao;
+import com.wnf.dao.*;
 import com.wnf.entity.*;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -15,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,12 +24,24 @@ public class DemoApplicationTests {
     IProvincesDao iProvincesDao;
     @Autowired
     IUserDao iUserDao;
+    @Autowired
+    ICityDao iCityDao;
+    @Autowired
+    TutorDao tutorDao;
 
     @Test
     public void contextLoads() {
+
+        List<Citys> citysList = iCityDao.getCitybypid(1);
+        if (citysList!=null&&citysList.size()>0) {
+            for (Citys citys : citysList) {
+                System.out.println(citys.getCname());
+            }
+        }
+
     }
 
-    @Test   //一对一
+    @Test   //注解实现一对一
     public void Testonttoone() throws IOException {
 
         // 根据id查询Person对象，同时需要获得关联的Card对象
@@ -39,30 +50,44 @@ public class DemoApplicationTests {
         System.out.println(person.getCard().getCnumber());
     }
 
-    @Test   //一对多
+    @Test   //注解实现一对多
     public void Testonttomany() throws IOException {
 
         Provinces provinces=iProvincesDao.getProvincesByid(1);
         System.out.println(provinces.getPname());
+        System.out.println(provinces.getCitysSet());
 
-        for (Citys citys : provinces.getCitysSet()) {
-            System.out.println(citys.getCname());
+        if (provinces.getCitysSet()!=null&&provinces.getCitysSet().size()>0) {
+            for (Citys citys : provinces.getCitysSet()) {
+                System.out.println(citys.getCname());
+            }
         }
 
     }
 
-    @Test   //多对多
+    @Test   //注解实现多对多
     public void Testmanytomany() throws IOException {
+
+        Users users=iUserDao.getUsersById(1);
+        System.out.println(users.getUname());
+
+        for (Roles roles : users.getRoles()) {
+            System.out.println(roles.getRname());
+        }
+
+    }
+
+    @Test   //resultMap实现一对多
+    public void Testmanytomany2() throws IOException {
 
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config"));
 //        SqlSession sqlSession = sqlSessionFactory.openSession();
 //
 //        IUserDao iUserDao=sqlSession.getMapper(IUserDao.class);
-        Users users=iUserDao.getUsersById(2);
-        System.out.println(users.getUname());
-
-        for (Roles roles : users.getRoles()) {
-            System.out.println(roles.getRname());
+        Tutor tutor=tutorDao.findTutorById(1);
+        System.out.println(tutor.getName());
+        for (Course course : tutor.getCourses()) {
+            System.out.println("    "+course.getCname());
         }
 
 //        sqlSession.close();
