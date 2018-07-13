@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TutorDao {
 
-    public Tutor findTutorById(int courseId);
+    public Tutor findTutorById(int tutorId);
 
 
 }

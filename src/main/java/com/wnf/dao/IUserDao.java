@@ -1,6 +1,7 @@
 package com.wnf.dao;
 
 import com.wnf.entity.Users;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
@@ -21,5 +22,6 @@ public interface IUserDao {
     })
     public Users getUsersById(int uid);
 
-
+    @Insert("insert into users('uname') values(#{user.uname})")
+    public int addUser(Users user);
 }

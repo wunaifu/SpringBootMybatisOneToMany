@@ -2,6 +2,7 @@ package com.wnf;
 
 import com.wnf.dao.*;
 import com.wnf.entity.*;
+import com.wnf.service.TutorService;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,6 +29,9 @@ public class DemoApplicationTests {
     ICityDao iCityDao;
     @Autowired
     TutorDao tutorDao;
+
+    @Autowired
+    TutorService tutorService;
 
     @Test
     public void contextLoads() {
@@ -91,6 +95,15 @@ public class DemoApplicationTests {
         }
 
 //        sqlSession.close();
+
+    }
+
+    @Test   //resultMap实现一对多
+    public void te() throws IOException {
+
+        Users users = new Users();
+        users.setUname("名字");
+        tutorService.addUser(users);
 
     }
 
