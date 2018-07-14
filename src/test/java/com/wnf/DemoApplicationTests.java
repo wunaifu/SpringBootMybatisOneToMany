@@ -98,7 +98,7 @@ public class DemoApplicationTests {
 
     }
 
-    @Test   //resultMap实现一对多
+    @Test
     public void te() throws IOException {
 
         Users users = new Users();
