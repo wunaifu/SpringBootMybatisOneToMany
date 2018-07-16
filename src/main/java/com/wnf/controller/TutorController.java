@@ -1,6 +1,7 @@
 package com.wnf.controller;
 
 import com.wnf.entity.Tutor;
+import com.wnf.entity.Users;
 import com.wnf.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,6 +85,20 @@ public class TutorController {
     public Tutor tutorList(@PathVariable("tutorId") int tutorId) {
         Tutor tutor = tutorService.findTutorById(tutorId);
         return tutor;
+    }
+
+    @RequestMapping("tutor/add")
+    public String tutoradd() {
+        Users users = new Users();
+        users.setUname("名字");
+        String result = "error";
+        try {
+            result = tutorService.addUser(users);
+        } catch (Exception e) {
+            result = "error:" + e.getMessage();
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

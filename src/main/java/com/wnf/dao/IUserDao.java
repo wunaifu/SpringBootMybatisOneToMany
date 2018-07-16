@@ -22,6 +22,6 @@ public interface IUserDao {
     })
     public Users getUsersById(int uid);
 
-    @Insert("insert into users('uname') values(#{user.uname})")
-    public int addUser(Users user);
+    @Insert("insert into users(uname) values(#{name})")
+    public int addUser(String name);
 }
