@@ -29,6 +29,8 @@ public class DemoApplicationTests {
     ICityDao iCityDao;
     @Autowired
     TutorDao tutorDao;
+    @Autowired
+    IRolesDao iRolesDao;
 
     @Autowired
     TutorService tutorService;
@@ -100,10 +102,10 @@ public class DemoApplicationTests {
 
     @Test
     public void te() throws IOException {
-
-        Users users = new Users();
-        users.setUname("名字");
-        tutorService.addUser(users);
+        Roles roles = new Roles();
+        roles.setRid(16);
+        roles.setRname("修改");
+        iRolesDao.updateRole(roles);
 
     }
 

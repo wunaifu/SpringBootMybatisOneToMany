@@ -1,8 +1,9 @@
 package com.wnf.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Roles {
+public class Roles implements Serializable {
 
     private int rid;
     private String rname;
