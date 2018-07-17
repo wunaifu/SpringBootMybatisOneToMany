@@ -96,7 +96,7 @@ public class TutorController {
             result = tutorService.addUser(users);
         } catch (Exception e) {
             result = "error:" + e.getMessage();
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return result;
     }

@@ -102,11 +102,21 @@ public class DemoApplicationTests {
 
     @Test
     public void te() throws IOException {
-        Roles roles = new Roles();
-        roles.setRid(16);
-        roles.setRname("修改");
-        iRolesDao.updateRole(roles);
+//        Roles roles = new Roles();
+//        roles.setRid(16);
+//        roles.setRname("修改");
+//        iRolesDao.updateRole(roles);
 
+        Users users = new Users();
+        users.setUname("添加");
+        String result = "error";
+        try {
+            result = tutorService.addUser(users);
+        } catch (Exception e) {
+            result = "error:" + e.getMessage();
+            e.printStackTrace();
+        }
+        System.out.println(result);
     }
 
 }

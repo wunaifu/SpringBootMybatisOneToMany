@@ -7,6 +7,7 @@ import com.wnf.entity.Roles;
 import com.wnf.entity.Tutor;
 import com.wnf.entity.Users;
 import com.wnf.service.TutorService;
+import com.wnf.util.MyThrowException;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,12 +56,12 @@ public class TutorServiceImpl implements TutorService {
                 if (delRoleRe == 1) {
                     return "success";
                 } else {
-                    throw new RuntimeException("出错了，Role删除失败");
+                    throw new MyThrowException("Role删除失败,数据回滚");
                 }
             } else {
-                throw new RuntimeException("出错了，User添加失败");
+                throw new MyThrowException("User添加失败，数据回滚");
             }
-        } catch (RuntimeException e) {
+        } catch (MyThrowException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             e.printStackTrace();
             throw e;
